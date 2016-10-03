@@ -14,7 +14,7 @@ from os import chmod, getcwd, getpid, makedirs, remove
 from os.path import dirname, exists, expanduser, isfile, join, split
 from site import getsitepackages
 from sys import argv
-
+import uuid                                                                                                
 from configobj import ConfigObj
 from execnet import makegateway
 from paramiko.util import log_to_file
@@ -135,6 +135,10 @@ else:
     remote_connection_file = local_connection_file
     remote_username = local_username
     remote_host = remote_username_at_remote_host
+
+# allow to work on common filesystem
+remote_connection_file = str(uuid.uuid4())+"_"+remote_connection_file                                       
+
 # Load a connection file
 with open(local_connection_file, 'r') as f:
     cfg = load(f)
